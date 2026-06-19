@@ -5,10 +5,33 @@ require("dotenv").config();
 
 const app = express();
 
+// CORS - Allow both local dev and production
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://guraneza.vercel.app",
+  "https://guraneza.onrender.com",
+];
+
+// If you deployed on Netlify instead, add your Netlify URL too
+// "https://guraneza.netlify.app",
+
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+      callback(null, true);
+    } else {
+      console.log('❌ Blocked CORS from:', origin);
+      callback(null, true); // Temporarily allow all during debugging
+      // callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -26,7 +49,7 @@ app.use("/api/admin/export", require("./src/routes/adminExportRoutes"));
 app.use("/api/admin/feedback", require("./src/routes/adminFeedbackRoutes"));
 app.use("/api/subscription-requests", require("./src/routes/subscriptionRequestRoutes"));
 app.use("/api/products/interact", require("./src/routes/productInteractionRoutes"));
-app.use("/api/help", require("./src/routes/helpRoutes")); // <-- ADD THIS LINE
+app.use("/api/help", require("./src/routes/helpRoutes"));
 
 // ==========================================
 // PUBLIC STATS ENDPOINT - NO AUTH REQUIRED
