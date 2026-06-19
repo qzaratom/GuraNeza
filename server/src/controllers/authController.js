@@ -3,6 +3,17 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const pool = require("../config/db");
 
+// Helper function to set auth cookie
+const setAuthCookie = (res, token) => {
+  res.cookie("guraneza_token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production' ? true : false,
+    sameSite: process.env.NODE_ENV === 'production' ? "none" : "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    path: "/",
+  });
+};
+
 const googleLogin = async (req, res) => {
   try {
     const { token } = req.body;
@@ -38,9 +49,7 @@ const googleLogin = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.cookie("guraneza_token", jwtToken, {
-      httpOnly: true, secure: false, sameSite: "lax", maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    setAuthCookie(res, jwtToken);
 
     const { password_hash, ...userWithoutPassword } = user.rows[0];
     res.json({ success: true, user: userWithoutPassword });
@@ -74,9 +83,7 @@ const register = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.cookie("guraneza_token", jwtToken, {
-      httpOnly: true, secure: false, sameSite: "lax", maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    setAuthCookie(res, jwtToken);
 
     const { password_hash, ...userWithoutPassword } = user.rows[0];
     res.status(201).json({ success: true, user: userWithoutPassword });
@@ -110,9 +117,7 @@ const login = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.cookie("guraneza_token", jwtToken, {
-      httpOnly: true, secure: false, sameSite: "lax", maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    setAuthCookie(res, jwtToken);
 
     const { password_hash, ...userWithoutPassword } = user.rows[0];
     res.json({ success: true, user: userWithoutPassword });
@@ -144,7 +149,13 @@ const checkAuth = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.cookie("guraneza_token", "", { httpOnly: true, expires: new Date(0) });
+  res.cookie("guraneza_token", "", { 
+    httpOnly: true, 
+    secure: process.env.NODE_ENV === 'production' ? true : false,
+    sameSite: process.env.NODE_ENV === 'production' ? "none" : "lax",
+    expires: new Date(0),
+    path: "/",
+  });
   res.json({ success: true, message: "Logged out" });
 };
 
@@ -187,7 +198,13 @@ const deleteAccount = async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     await pool.query("DELETE FROM users WHERE id = $1", [decoded.id]);
 
-    res.clearCookie("guraneza_token");
+    res.cookie("guraneza_token", "", { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production' ? true : false,
+      sameSite: process.env.NODE_ENV === 'production' ? "none" : "lax",
+      expires: new Date(0),
+      path: "/",
+    });
     res.json({ success: true, message: "Account deleted successfully" });
   } catch (error) {
     console.error("Delete account error:", error);
