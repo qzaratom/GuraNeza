@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* ============================================ */
+/* GLOBAL SCROLLBAR STYLES - Theme Aware */
+/* ============================================ */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00E309 rgba(0, 0, 0, 0.1);
+}
+
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00E309;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00cc07;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Dark mode scrollbar */
+.dark * {
+  scrollbar-color: #00E309 rgba(255, 255, 255, 0.05);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #00E309;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #00cc07;
+}
+
+/* ============================================ */
+/* GLOBAL BODY STYLES */
+/* ============================================ */
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.dark body {
+  background-color: #030712;
+  color: #e5e7eb;
+}
+
+/* Smooth transitions for theme switching */
+body, body * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Exclude transitions on elements that shouldn't animate */
+body, body * {
+  transition-property: background-color, color, border-color;
+}
+
+img, video, svg, button, a {
+  transition: none !important;
+}
