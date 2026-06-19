@@ -72,7 +72,7 @@ function ShopView() {
     setLoading(true);
     setError("");
     try {
-      const shopRes = await fetch(`http://localhost:5000/api/shops/${shopId}`, { 
+      const shopRes = await fetch(`https://guraneza.onrender.com/api/shops/${shopId}`, { 
         credentials: "include",
         headers: { "Content-Type": "application/json" }
       });
@@ -87,7 +87,7 @@ function ShopView() {
       }
 
       if (!currentShop) {
-        const altRes = await fetch("http://localhost:5000/api/shops", { credentials: "include" });
+        const altRes = await fetch("https://guraneza.onrender.com/api/shops", { credentials: "include" });
         const altData = await altRes.json();
         if (altData.success && altData.shops) {
           const found = altData.shops.find(s => s.id == shopId || s.shop_id == shopId);
@@ -103,7 +103,7 @@ function ShopView() {
 
       // Fetch products
       let products = [];
-      const prodRes = await fetch(`http://localhost:5000/api/shops/${shopId}/products`, { 
+      const prodRes = await fetch(`https://guraneza.onrender.com/api/shops/${shopId}/products`, { 
         credentials: "include",
         headers: { "Content-Type": "application/json" }
       });
@@ -116,7 +116,7 @@ function ShopView() {
       }
 
       if (products.length === 0) {
-        const allProdRes = await fetch("http://localhost:5000/api/products", { credentials: "include" });
+        const allProdRes = await fetch("https://guraneza.onrender.com/api/products", { credentials: "include" });
         const allProdData = await allProdRes.json();
         if (allProdData.success && allProdData.products) {
           const shop = currentShop || {};
@@ -146,7 +146,7 @@ function ShopView() {
       return; 
     }
     try {
-      const res = await fetch("http://localhost:5000/api/cart", {
+      const res = await fetch("https://guraneza.onrender.com/api/cart", {
         method: "POST", 
         headers: { "Content-Type": "application/json" },
         credentials: "include", 

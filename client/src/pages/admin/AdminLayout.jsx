@@ -37,14 +37,14 @@ function AdminLayout() {
 
   const fetchPendingCounts = async () => {
     try {
-      const helpRes = await fetch("http://localhost:5000/api/help/tickets/all", { credentials: "include" });
+      const helpRes = await fetch("https://guraneza.onrender.com/api/help/tickets/all", { credentials: "include" });
       const helpData = await helpRes.json();
       if (helpData.success) {
         const pending = helpData.tickets.filter(t => t.status === 'open' || t.status === 'in_progress').length;
         setHelpPendingCount(pending);
       }
 
-      const reqRes = await fetch("http://localhost:5000/api/admin/feedback/subscription-requests", { credentials: "include" });
+      const reqRes = await fetch("https://guraneza.onrender.com/api/admin/feedback/subscription-requests", { credentials: "include" });
       const reqData = await reqRes.json();
       if (reqData.success) {
         setRequestsPendingCount(reqData.requests.filter(r => r.status === 'pending').length);

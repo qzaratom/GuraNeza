@@ -29,12 +29,12 @@ function AdminDashboard() {
   const fetchDashboardData = async () => {
     try {
       const [statsRes, usersRes, productsRes, shopsRes, reqRes, helpRes] = await Promise.all([
-        fetch("http://localhost:5000/api/admin/stats", { credentials: "include" }),
-        fetch("http://localhost:5000/api/admin/users", { credentials: "include" }),
-        fetch("http://localhost:5000/api/admin/products", { credentials: "include" }),
-        fetch("http://localhost:5000/api/shops", { credentials: "include" }),
-        fetch("http://localhost:5000/api/admin/feedback/subscription-requests", { credentials: "include" }),
-        fetch("http://localhost:5000/api/help/tickets/all", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/stats", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/users", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/products", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/shops", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/feedback/subscription-requests", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/help/tickets/all", { credentials: "include" }),
       ]);
       
       const statsData = await statsRes.json(); 

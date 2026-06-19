@@ -44,7 +44,7 @@ function Notifications() {
   const fetchNotifications = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/notifications", {
+      const response = await fetch("https://guraneza.onrender.com/api/notifications", {
         credentials: "include",
       });
       const data = await response.json();
@@ -58,7 +58,7 @@ function Notifications() {
 
   const markAsRead = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/notifications/${id}/read`, {
+      await fetch(`https://guraneza.onrender.com/api/notifications/${id}/read`, {
         method: "PUT", credentials: "include",
       });
       setNotifications(notifications.map(n => n.id === id ? { ...n, is_read: true } : n));
@@ -68,7 +68,7 @@ function Notifications() {
 
   const markAllAsRead = async () => {
     try {
-      await fetch("http://localhost:5000/api/notifications/read-all", {
+      await fetch("https://guraneza.onrender.com/api/notifications/read-all", {
         method: "PUT", credentials: "include",
       });
       setNotifications(notifications.map(n => ({ ...n, is_read: true })));
@@ -81,7 +81,7 @@ function Notifications() {
   const deleteNotification = async (id, e) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:5000/api/notifications/${id}`, {
+      await fetch(`https://guraneza.onrender.com/api/notifications/${id}`, {
         method: "DELETE", credentials: "include",
       });
       setNotifications(notifications.filter(n => n.id !== id));
@@ -91,7 +91,7 @@ function Notifications() {
 
   const clearAllNotifications = async () => {
     try {
-      await fetch("http://localhost:5000/api/notifications/clear-all", {
+      await fetch("https://guraneza.onrender.com/api/notifications/clear-all", {
         method: "DELETE", credentials: "include",
       });
       setNotifications([]);

@@ -26,8 +26,8 @@ function AdminUsers() {
     setLoading(true);
     try {
       const [usersRes, subsRes] = await Promise.all([
-        fetch("http://localhost:5000/api/admin/users", { credentials: "include" }),
-        fetch("http://localhost:5000/api/admin/subscriptions", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/users", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/subscriptions", { credentials: "include" }),
       ]);
       const usersData = await usersRes.json(); 
       if (usersData.success) setUsers(usersData.users);
@@ -38,7 +38,7 @@ function AdminUsers() {
 
   const updateSubscription = async (userId, subscriptionId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/subscription`, {
+      const res = await fetch(`https://guraneza.onrender.com/api/admin/users/${userId}/subscription`, {
         method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include",
         body: JSON.stringify({ subscription_id: subscriptionId }),
       });
@@ -51,7 +51,7 @@ function AdminUsers() {
     } catch (err) {}
   };
 
-  const handleExport = () => { window.open("http://localhost:5000/api/admin/export/users", "_blank"); };
+  const handleExport = () => { window.open("https://guraneza.onrender.com/api/admin/export/users", "_blank"); };
 
   const filteredUsers = users.filter(u => {
     const matchesSearch = u.username?.toLowerCase().includes(searchTerm.toLowerCase()) || u.email?.toLowerCase().includes(searchTerm.toLowerCase());

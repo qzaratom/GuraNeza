@@ -90,7 +90,7 @@ function Shops() {
 
   const fetchShops = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/shops", { credentials: "include" });
+      const response = await fetch("https://guraneza.onrender.com/api/shops", { credentials: "include" });
       const data = await response.json();
       if (data.success) setShops(data.shops);
     } catch (err) {} finally { setLoading(false); }
@@ -98,7 +98,7 @@ function Shops() {
 
   const fetchMyShop = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/shops/my-shop", { credentials: "include" });
+      const response = await fetch("https://guraneza.onrender.com/api/shops/my-shop", { credentials: "include" });
       const data = await response.json();
       if (data.success) {
         setMyShop(data.shop);
@@ -140,7 +140,7 @@ function Shops() {
     const uploadFormData = new FormData();
     uploadFormData.append("image", posterFile);
     try {
-      const response = await fetch("http://localhost:5000/api/upload/single", {
+      const response = await fetch("https://guraneza.onrender.com/api/upload/single", {
         method: "POST", credentials: "include", body: uploadFormData,
       });
       const data = await response.json();
@@ -157,7 +157,7 @@ function Shops() {
     try {
       let posterUrl = formData.poster_image;
       if (posterFile) posterUrl = await uploadPosterToCloudinary();
-      const response = await fetch("http://localhost:5000/api/shops", {
+      const response = await fetch("https://guraneza.onrender.com/api/shops", {
         method: "POST", headers: { "Content-Type": "application/json" },
         credentials: "include", body: JSON.stringify({ ...formData, poster_image: posterUrl }),
       });
@@ -179,7 +179,7 @@ function Shops() {
     try {
       let posterUrl = formData.poster_image;
       if (posterFile) posterUrl = await uploadPosterToCloudinary();
-      const response = await fetch(`http://localhost:5000/api/shops/${myShop.id}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/shops/${myShop.id}`, {
         method: "PUT", headers: { "Content-Type": "application/json" },
         credentials: "include", body: JSON.stringify({ ...formData, poster_image: posterUrl }),
       });
@@ -196,7 +196,7 @@ function Shops() {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/products/${productId}`, {
         method: "DELETE", credentials: "include",
       });
       const data = await response.json();

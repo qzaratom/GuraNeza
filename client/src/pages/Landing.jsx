@@ -121,8 +121,8 @@ function Landing() {
     const fetchData = async () => {
       try {
         const [productsRes, statsRes] = await Promise.all([
-          fetch("http://localhost:5000/api/products"),
-          fetch("http://localhost:5000/api/public/stats"),
+          fetch("https://guraneza.onrender.com/api/products"),
+          fetch("https://guraneza.onrender.com/api/public/stats"),
         ]);
         const productsData = await productsRes.json();
         const statsData = await statsRes.json();

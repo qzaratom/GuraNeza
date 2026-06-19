@@ -59,7 +59,7 @@ function EditProduct() {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/products/${id}`, {
         credentials: "include",
       });
       const data = await response.json();
@@ -159,7 +159,7 @@ function EditProduct() {
     });
 
     try {
-      const response = await fetch("http://localhost:5000/api/upload/multiple", {
+      const response = await fetch("https://guraneza.onrender.com/api/upload/multiple", {
         method: "POST",
         credentials: "include",
         body: formData,
@@ -209,7 +209,7 @@ function EditProduct() {
       const allImageUrls = [...existingUrls, ...newImageUrls];
 
       // Update product
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/products/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

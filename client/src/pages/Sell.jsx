@@ -68,7 +68,7 @@ function Sell() {
 
   const fetchProductCount = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/subscriptions/product-count", { credentials: "include" });
+      const response = await fetch("https://guraneza.onrender.com/api/subscriptions/product-count", { credentials: "include" });
       const data = await response.json();
       if (data.success) setProductCount(data);
     } catch (err) {}
@@ -76,7 +76,7 @@ function Sell() {
 
   const fetchMyShop = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/shops/my-shop", { credentials: "include" });
+      const response = await fetch("https://guraneza.onrender.com/api/shops/my-shop", { credentials: "include" });
       const data = await response.json();
       if (data.success && data.shop) {
         setMyShop(data.shop);
@@ -113,7 +113,7 @@ function Sell() {
     const fd = new FormData();
     images.forEach((image) => fd.append("images", image));
     try {
-      const response = await fetch("http://localhost:5000/api/upload/multiple", {
+      const response = await fetch("https://guraneza.onrender.com/api/upload/multiple", {
         method: "POST", credentials: "include", body: fd,
       });
       const data = await response.json();
@@ -148,7 +148,7 @@ function Sell() {
         catch (uploadErr) { setError(uploadErr.message); setLoading(false); return; }
       }
 
-      const response = await fetch("http://localhost:5000/api/products", {
+      const response = await fetch("https://guraneza.onrender.com/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

@@ -37,7 +37,7 @@ function AdminHelpRequests() {
 
   const fetchTickets = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/help/tickets/all", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/help/tickets/all", { credentials: "include" });
       const data = await res.json();
       if (data.success) setTickets(data.tickets);
     } catch (err) {} finally { setLoading(false); }
@@ -45,7 +45,7 @@ function AdminHelpRequests() {
 
   const fetchResponses = async (ticketId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/help/tickets/${ticketId}/responses`, { credentials: "include" });
+      const res = await fetch(`https://guraneza.onrender.com/api/help/tickets/${ticketId}/responses`, { credentials: "include" });
       const data = await res.json();
       if (data.success) setResponses(data.responses);
     } catch (err) {}
@@ -55,7 +55,7 @@ function AdminHelpRequests() {
     if (!replyMessage.trim() || !activeTicket) return;
     setSendingReply(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/help/tickets/${activeTicket.id}/responses`, {
+      const res = await fetch(`https://guraneza.onrender.com/api/help/tickets/${activeTicket.id}/responses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -72,7 +72,7 @@ function AdminHelpRequests() {
 
   const handleUpdateStatus = async (ticketId, status) => {
     try {
-      await fetch(`http://localhost:5000/api/help/tickets/${ticketId}`, {
+      await fetch(`https://guraneza.onrender.com/api/help/tickets/${ticketId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

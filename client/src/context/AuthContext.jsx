@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/me", {
+      const response = await fetch("https://guraneza.onrender.com/api/auth/me", {
         credentials: "include",
       });
       const data = await response.json();
@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
 
   const refreshUser = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/me", {
+      const response = await fetch("https://guraneza.onrender.com/api/auth/me", {
         credentials: "include",
       });
       const data = await response.json();
@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
   const handleLogin = async (email, password, isSignUp) => {
     try {
       const endpoint = isSignUp ? "/api/auth/register" : "/api/auth/login";
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
+      const response = await fetch(`https://guraneza.onrender.com${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -69,7 +69,7 @@ export function AuthProvider({ children }) {
 
   const handleGoogleLogin = async (credentialResponse) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/google", {
+      const response = await fetch("https://guraneza.onrender.com/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -91,7 +91,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    await fetch("http://localhost:5000/api/auth/logout", {
+    await fetch("https://guraneza.onrender.com/api/auth/logout", {
       method: "POST",
       credentials: "include",
     });

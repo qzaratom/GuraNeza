@@ -50,7 +50,7 @@ function AdminShops() {
   const fetchShops = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/shops", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/shops", { credentials: "include" });
       const data = await res.json(); 
       if (data.success) setShops(data.shops);
     } catch (err) {} finally { setLoading(false); }
@@ -58,7 +58,7 @@ function AdminShops() {
 
   const verifyShop = async (shopId) => {
     try { 
-      await fetch(`http://localhost:5000/api/shops/${shopId}`, { 
+      await fetch(`https://guraneza.onrender.com/api/shops/${shopId}`, { 
         method: "PUT", headers: { "Content-Type": "application/json" }, 
         credentials: "include", body: JSON.stringify({ is_verified: true }) 
       }); 
@@ -71,14 +71,14 @@ function AdminShops() {
   const deleteShop = async (shopId) => {
     if (!confirm("Delete this shop permanently?")) return;
     try { 
-      await fetch(`http://localhost:5000/api/shops/${shopId}`, { method: "DELETE", credentials: "include" }); 
+      await fetch(`https://guraneza.onrender.com/api/shops/${shopId}`, { method: "DELETE", credentials: "include" }); 
       setMessage("Shop deleted!"); 
       setTimeout(() => setMessage(""), 3000); 
       fetchShops(); 
     } catch (err) {}
   };
 
-  const handleExport = () => { window.open("http://localhost:5000/api/admin/export/shops", "_blank"); };
+  const handleExport = () => { window.open("https://guraneza.onrender.com/api/admin/export/shops", "_blank"); };
 
   const handleShopPosterChange = (e) => { 
     const file = e.target.files[0]; 
@@ -88,7 +88,7 @@ function AdminShops() {
   const uploadPosterToCloudinary = async () => { 
     if (!shopPosterFile) return shopForm.poster_image || ""; 
     const fd = new FormData(); fd.append("image", shopPosterFile); 
-    const r = await fetch("http://localhost:5000/api/upload/single", { method: "POST", credentials: "include", body: fd }); 
+    const r = await fetch("https://guraneza.onrender.com/api/upload/single", { method: "POST", credentials: "include", body: fd }); 
     const d = await r.json(); 
     if (d.success) return d.imageUrl; 
     throw new Error("Upload failed"); 
@@ -101,7 +101,7 @@ function AdminShops() {
     try {
       let posterUrl = shopForm.poster_image; 
       if (shopPosterFile) posterUrl = await uploadPosterToCloudinary();
-      const res = await fetch("http://localhost:5000/api/shops", { 
+      const res = await fetch("https://guraneza.onrender.com/api/shops", { 
         method: "POST", headers: { "Content-Type": "application/json" }, 
         credentials: "include", body: JSON.stringify({ ...shopForm, poster_image: posterUrl }) 
       });
@@ -133,7 +133,7 @@ function AdminShops() {
     try {
       let posterUrl = shopForm.poster_image; 
       if (shopPosterFile) posterUrl = await uploadPosterToCloudinary();
-      const res = await fetch(`http://localhost:5000/api/shops/${showEditShop.id}`, { 
+      const res = await fetch(`https://guraneza.onrender.com/api/shops/${showEditShop.id}`, { 
         method: "PUT", headers: { "Content-Type": "application/json" }, 
         credentials: "include", body: JSON.stringify({ ...shopForm, poster_image: posterUrl }) 
       });

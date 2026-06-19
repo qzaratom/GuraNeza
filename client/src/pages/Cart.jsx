@@ -29,7 +29,7 @@ function Cart() {
   const fetchCart = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/cart", { credentials: "include" });
+      const response = await fetch("https://guraneza.onrender.com/api/cart", { credentials: "include" });
       const data = await response.json();
       if (data.success) {
         setCartItems(data.cart);
@@ -47,7 +47,7 @@ function Cart() {
     if (newQuantity < 1) return;
     setUpdating(cartId);
     try {
-      const response = await fetch(`http://localhost:5000/api/cart/${cartId}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/cart/${cartId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -68,7 +68,7 @@ function Cart() {
   const removeItem = async (cartId) => {
     setUpdating(cartId);
     try {
-      const response = await fetch(`http://localhost:5000/api/cart/${cartId}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/cart/${cartId}`, {
         method: "DELETE", credentials: "include",
       });
       const data = await response.json();

@@ -19,7 +19,7 @@ function SellerProfile() {
 
   const fetchSellerProfile = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/user/${id}`, { credentials: "include" });
+      const response = await fetch(`https://guraneza.onrender.com/api/auth/user/${id}`, { credentials: "include" });
       const data = await response.json();
       if (data.success) { setSeller(data.user); document.title = `${data.user.username} - GuraNeza`; }
       else { setError("User not found"); }
@@ -29,7 +29,7 @@ function SellerProfile() {
 
   const fetchSellerProducts = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/user/${id}/products`, { credentials: "include" });
+      const response = await fetch(`https://guraneza.onrender.com/api/auth/user/${id}/products`, { credentials: "include" });
       const data = await response.json();
       if (data.success) setProducts(data.products);
     } catch (err) {}

@@ -86,12 +86,12 @@ function Admin() {
     setLoading(true);
     try {
       const [statsRes, usersRes, productsRes, subsRes, shopsRes, reqRes] = await Promise.all([
-        fetch("http://localhost:5000/api/admin/stats", { credentials: "include" }),
-        fetch("http://localhost:5000/api/admin/users", { credentials: "include" }),
-        fetch("http://localhost:5000/api/admin/products", { credentials: "include" }),
-        fetch("http://localhost:5000/api/admin/subscriptions", { credentials: "include" }),
-        fetch("http://localhost:5000/api/shops", { credentials: "include" }),
-        fetch("http://localhost:5000/api/admin/feedback/subscription-requests", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/stats", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/users", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/products", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/subscriptions", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/shops", { credentials: "include" }),
+        fetch("https://guraneza.onrender.com/api/admin/feedback/subscription-requests", { credentials: "include" }),
       ]);
       const statsData = await statsRes.json(); if (statsData.success) setStats(statsData.stats);
       const usersData = await usersRes.json(); if (usersData.success) setUsers(usersData.users);
@@ -104,7 +104,7 @@ function Admin() {
 
   const fetchHelpTickets = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/help/tickets/all", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/help/tickets/all", { credentials: "include" });
       const data = await res.json();
       if (data.success) setHelpTickets(data.tickets);
     } catch (err) {}
@@ -112,7 +112,7 @@ function Admin() {
 
   const fetchTicketResponses = async (ticketId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/help/tickets/${ticketId}/responses`, { credentials: "include" });
+      const res = await fetch(`https://guraneza.onrender.com/api/help/tickets/${ticketId}/responses`, { credentials: "include" });
       const data = await res.json();
       if (data.success) setTicketResponses(data.responses);
     } catch (err) {}
@@ -122,7 +122,7 @@ function Admin() {
     if (!replyMessage.trim() || !activeHelpTicket) return;
     setSendingReply(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/help/tickets/${activeHelpTicket.id}/responses`, {
+      const res = await fetch(`https://guraneza.onrender.com/api/help/tickets/${activeHelpTicket.id}/responses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -139,7 +139,7 @@ function Admin() {
 
   const handleUpdateTicketStatus = async (ticketId, status) => {
     try {
-      await fetch(`http://localhost:5000/api/help/tickets/${ticketId}`, {
+      await fetch(`https://guraneza.onrender.com/api/help/tickets/${ticketId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -154,31 +154,31 @@ function Admin() {
 
   const updateSubscription = async (userId, subscriptionId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/subscription`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ subscription_id: subscriptionId }) });
+      const res = await fetch(`https://guraneza.onrender.com/api/admin/users/${userId}/subscription`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ subscription_id: subscriptionId }) });
       const data = await res.json();
       if (data.success) { setMessage("Subscription updated!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); }
     } catch (err) {}
   };
 
   const verifyProduct = async (productId) => {
-    try { const res = await fetch(`http://localhost:5000/api/admin/products/${productId}/verify`, { method: "PUT", credentials: "include" }); if ((await res.json()).success) { setMessage("Product verified!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); } } catch (err) {}
+    try { const res = await fetch(`https://guraneza.onrender.com/api/admin/products/${productId}/verify`, { method: "PUT", credentials: "include" }); if ((await res.json()).success) { setMessage("Product verified!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); } } catch (err) {}
   };
 
   const deleteProduct = async (productId) => {
     if (!confirm("Delete this product?")) return;
-    try { await fetch(`http://localhost:5000/api/products/${productId}`, { method: "DELETE", credentials: "include" }); setMessage("Product deleted!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); } catch (err) {}
+    try { await fetch(`https://guraneza.onrender.com/api/products/${productId}`, { method: "DELETE", credentials: "include" }); setMessage("Product deleted!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); } catch (err) {}
   };
 
   const verifyShop = async (shopId) => {
-    try { await fetch(`http://localhost:5000/api/shops/${shopId}`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ is_verified: true }) }); setMessage("Shop verified!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); } catch (err) {}
+    try { await fetch(`https://guraneza.onrender.com/api/shops/${shopId}`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ is_verified: true }) }); setMessage("Shop verified!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); } catch (err) {}
   };
 
   const deleteShop = async (shopId) => {
     if (!confirm("Delete this shop?")) return;
-    try { await fetch(`http://localhost:5000/api/shops/${shopId}`, { method: "DELETE", credentials: "include" }); setMessage("Shop deleted!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); } catch (err) {}
+    try { await fetch(`https://guraneza.onrender.com/api/shops/${shopId}`, { method: "DELETE", credentials: "include" }); setMessage("Shop deleted!"); setTimeout(() => setMessage(""), 3000); fetchAllData(); } catch (err) {}
   };
 
-  const handleExport = (type) => { window.open(`http://localhost:5000/api/admin/export/${type}`, "_blank"); };
+  const handleExport = (type) => { window.open(`https://guraneza.onrender.com/api/admin/export/${type}`, "_blank"); };
 
   const handleApprove = (req) => { setShowApproveModal(req); setAdminMessage("Your subscription upgrade has been approved! Welcome to " + req.plan_name + " plan."); };
   const handleReject = (req) => { setShowRejectModal(req); setAdminMessage(""); };
@@ -186,7 +186,7 @@ function Admin() {
   const submitApproval = async (status) => {
     const req = status === 'approved' ? showApproveModal : showRejectModal;
     try {
-      await fetch(`http://localhost:5000/api/admin/feedback/subscription-requests/${req.id}`, {
+      await fetch(`https://guraneza.onrender.com/api/admin/feedback/subscription-requests/${req.id}`, {
         method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include",
         body: JSON.stringify({ status, admin_message: adminMessage }),
       });
@@ -199,7 +199,7 @@ function Admin() {
 
   const handleProductImageChange = (e) => { const files = Array.from(e.target.files); if (files.length + productImages.length > 5) { setProductFormError("Max 5 images"); return; } setProductImages(prev => [...prev, ...files]); setProductImagePreviews(prev => [...prev, ...files.map(f => URL.createObjectURL(f))]); };
   const removeProductImage = (i) => { setProductImages(prev => prev.filter((_, idx) => idx !== i)); setProductImagePreviews(prev => prev.filter((_, idx) => idx !== i)); };
-  const uploadImagesToCloudinary = async (imgs) => { if (!imgs.length) return []; const fd = new FormData(); imgs.forEach(i => fd.append("images", i)); const r = await fetch("http://localhost:5000/api/upload/multiple", { method: "POST", credentials: "include", body: fd }); const d = await r.json(); if (d.success) return d.images.map(i => i.url); throw new Error("Upload failed"); };
+  const uploadImagesToCloudinary = async (imgs) => { if (!imgs.length) return []; const fd = new FormData(); imgs.forEach(i => fd.append("images", i)); const r = await fetch("https://guraneza.onrender.com/api/upload/multiple", { method: "POST", credentials: "include", body: fd }); const d = await r.json(); if (d.success) return d.images.map(i => i.url); throw new Error("Upload failed"); };
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -207,18 +207,18 @@ function Admin() {
     setProductFormLoading(true);
     try {
       let urls = []; if (productImages.length) urls = await uploadImagesToCloudinary(productImages);
-      const r = await fetch("http://localhost:5000/api/products", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ name: productForm.name.trim(), description: productForm.description.trim(), price: Number(productForm.price), stock_quantity: Number(productForm.stock_quantity)||1, category: productForm.category, negotiable: productForm.negotiable, owner_id: user.id, image_urls: urls }) });
+      const r = await fetch("https://guraneza.onrender.com/api/products", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ name: productForm.name.trim(), description: productForm.description.trim(), price: Number(productForm.price), stock_quantity: Number(productForm.stock_quantity)||1, category: productForm.category, negotiable: productForm.negotiable, owner_id: user.id, image_urls: urls }) });
       if ((await r.json()).success) { setProductFormSuccess("Added!"); setProductForm({ name: "", description: "", price: "", stock_quantity: "1", category: "", negotiable: false }); setProductImages([]); setProductImagePreviews([]); setTimeout(() => { setShowAddProduct(false); setProductFormSuccess(""); fetchAllData(); }, 1500); }
     } catch (err) { setProductFormError("Failed"); } finally { setProductFormLoading(false); }
   };
 
   const handleShopPosterChange = (e) => { const f = e.target.files[0]; if (f) { setShopPosterFile(f); setShopPosterPreview(URL.createObjectURL(f)); } };
-  const uploadPoster = async () => { if (!shopPosterFile) return shopForm.poster_image || ""; const fd = new FormData(); fd.append("image", shopPosterFile); const r = await fetch("http://localhost:5000/api/upload/single", { method: "POST", credentials: "include", body: fd }); const d = await r.json(); if (d.success) return d.imageUrl; throw new Error("Failed"); };
+  const uploadPoster = async () => { if (!shopPosterFile) return shopForm.poster_image || ""; const fd = new FormData(); fd.append("image", shopPosterFile); const r = await fetch("https://guraneza.onrender.com/api/upload/single", { method: "POST", credentials: "include", body: fd }); const d = await r.json(); if (d.success) return d.imageUrl; throw new Error("Failed"); };
 
   const handleCreateShop = async (e) => {
     e.preventDefault(); if (!shopForm.shop_name.trim()) { setShopFormError("Name required"); return; }
     setShopFormLoading(true);
-    try { let poster = shopForm.poster_image; if (shopPosterFile) poster = await uploadPoster(); const r = await fetch("http://localhost:5000/api/shops", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({...shopForm, poster_image: poster}) }); if ((await r.json()).success) { setShopFormSuccess("Created!"); setShopForm({ shop_name: "", description: "", category: "", location: "", phone: "", email: "", poster_image: "" }); setShopPosterFile(null); setShopPosterPreview(""); setTimeout(() => { setShowAddShop(false); setShopFormSuccess(""); fetchAllData(); }, 1500); } } catch (err) { setShopFormError("Failed"); } finally { setShopFormLoading(false); }
+    try { let poster = shopForm.poster_image; if (shopPosterFile) poster = await uploadPoster(); const r = await fetch("https://guraneza.onrender.com/api/shops", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({...shopForm, poster_image: poster}) }); if ((await r.json()).success) { setShopFormSuccess("Created!"); setShopForm({ shop_name: "", description: "", category: "", location: "", phone: "", email: "", poster_image: "" }); setShopPosterFile(null); setShopPosterPreview(""); setTimeout(() => { setShowAddShop(false); setShopFormSuccess(""); fetchAllData(); }, 1500); } } catch (err) { setShopFormError("Failed"); } finally { setShopFormLoading(false); }
   };
 
   const handleEditShop = (shop) => { setShopForm({ shop_name: shop.shop_name||"", description: shop.description||"", category: shop.category||"", location: shop.location||"", phone: shop.phone||"", email: shop.email||"", poster_image: shop.poster_image||"" }); setShopPosterPreview(shop.poster_image||""); setShopPosterFile(null); setShowEditShop(shop); };
@@ -226,14 +226,14 @@ function Admin() {
   const handleUpdateShop = async (e) => {
     e.preventDefault(); if (!shopForm.shop_name.trim()) { setShopFormError("Name required"); return; }
     setShopFormLoading(true);
-    try { let poster = shopForm.poster_image; if (shopPosterFile) poster = await uploadPoster(); const r = await fetch(`http://localhost:5000/api/shops/${showEditShop.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({...shopForm, poster_image: poster}) }); if ((await r.json()).success) { setShopFormSuccess("Updated!"); setShowEditShop(null); setTimeout(() => { setShopFormSuccess(""); fetchAllData(); }, 1500); } } catch (err) { setShopFormError("Failed"); } finally { setShopFormLoading(false); }
+    try { let poster = shopForm.poster_image; if (shopPosterFile) poster = await uploadPoster(); const r = await fetch(`https://guraneza.onrender.com/api/shops/${showEditShop.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({...shopForm, poster_image: poster}) }); if ((await r.json()).success) { setShopFormSuccess("Updated!"); setShowEditShop(null); setTimeout(() => { setShopFormSuccess(""); fetchAllData(); }, 1500); } } catch (err) { setShopFormError("Failed"); } finally { setShopFormLoading(false); }
   };
 
   const handleEditPlan = (plan) => { setPlanForm({ plan_name: plan.plan_name, price: plan.price, product_limit: plan.product_limit, verified_seller_badge: plan.verified_seller_badge, verified_product_badge: plan.verified_product_badge, premium_badge: plan.premium_badge, shop_badge: plan.shop_badge, shop_enabled: plan.shop_enabled, vip_badge: plan.vip_badge }); setShowEditPlan(plan); };
 
   const handleUpdatePlan = async (e) => {
     e.preventDefault(); setPlanFormLoading(true);
-    try { await fetch(`http://localhost:5000/api/admin/subscriptions/${showEditPlan.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify(planForm) }); setPlanFormSuccess("Updated!"); setShowEditPlan(null); setTimeout(() => { setPlanFormSuccess(""); fetchAllData(); }, 1500); } catch (err) { setPlanFormError("Failed"); } finally { setPlanFormLoading(false); }
+    try { await fetch(`https://guraneza.onrender.com/api/admin/subscriptions/${showEditPlan.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify(planForm) }); setPlanFormSuccess("Updated!"); setShowEditPlan(null); setTimeout(() => { setPlanFormSuccess(""); fetchAllData(); }, 1500); } catch (err) { setPlanFormError("Failed"); } finally { setPlanFormLoading(false); }
   };
 
   const getStatusColor = (status) => {

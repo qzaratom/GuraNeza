@@ -86,7 +86,7 @@ function FloatingActionButton() {
 
   const fetchUnreadCount = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/notifications", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/notifications", { credentials: "include" });
       const data = await res.json();
       if (data.success) {
         const unread = data.notifications.filter(n => !n.is_read).length;

@@ -47,7 +47,7 @@ function AdminProducts() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/products", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/admin/products", { credentials: "include" });
       const data = await res.json(); 
       if (data.success) setProducts(data.products);
     } catch (err) {} finally { setLoading(false); }
@@ -55,7 +55,7 @@ function AdminProducts() {
 
   const verifyProduct = async (productId) => {
     try { 
-      await fetch(`http://localhost:5000/api/admin/products/${productId}/verify`, { method: "PUT", credentials: "include" }); 
+      await fetch(`https://guraneza.onrender.com/api/admin/products/${productId}/verify`, { method: "PUT", credentials: "include" }); 
       setMessage("Product verified!"); 
       setTimeout(() => setMessage(""), 3000); 
       fetchProducts(); 
@@ -65,14 +65,14 @@ function AdminProducts() {
   const deleteProduct = async (productId) => {
     if (!confirm("Delete this product permanently?")) return;
     try { 
-      await fetch(`http://localhost:5000/api/products/${productId}`, { method: "DELETE", credentials: "include" }); 
+      await fetch(`https://guraneza.onrender.com/api/products/${productId}`, { method: "DELETE", credentials: "include" }); 
       setMessage("Product deleted!"); 
       setTimeout(() => setMessage(""), 3000); 
       fetchProducts(); 
     } catch (err) {}
   };
 
-  const handleExport = () => { window.open("http://localhost:5000/api/admin/export/products", "_blank"); };
+  const handleExport = () => { window.open("https://guraneza.onrender.com/api/admin/export/products", "_blank"); };
 
   const handleProductImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -90,7 +90,7 @@ function AdminProducts() {
     if (!imgs.length) return []; 
     const fd = new FormData(); 
     imgs.forEach(i => fd.append("images", i)); 
-    const r = await fetch("http://localhost:5000/api/upload/multiple", { method: "POST", credentials: "include", body: fd }); 
+    const r = await fetch("https://guraneza.onrender.com/api/upload/multiple", { method: "POST", credentials: "include", body: fd }); 
     const d = await r.json(); 
     if (d.success) return d.images.map(i => i.url); 
     throw new Error("Upload failed"); 
@@ -105,7 +105,7 @@ function AdminProducts() {
     try {
       let imageUrls = []; 
       if (productImages.length > 0) imageUrls = await uploadImagesToCloudinary(productImages);
-      const res = await fetch("http://localhost:5000/api/products", { 
+      const res = await fetch("https://guraneza.onrender.com/api/products", { 
         method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include", 
         body: JSON.stringify({ 
           name: productForm.name.trim(), description: productForm.description.trim(), 

@@ -39,7 +39,7 @@ function MyProducts() {
   const fetchMyProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/products?owner_id=${user.id}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/products?owner_id=${user.id}`, {
         credentials: "include",
       });
       const data = await response.json();
@@ -53,7 +53,7 @@ function MyProducts() {
 
   const fetchProductCount = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/subscriptions/product-count", {
+      const response = await fetch("https://guraneza.onrender.com/api/subscriptions/product-count", {
         credentials: "include",
       });
       const data = await response.json();
@@ -63,7 +63,7 @@ function MyProducts() {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/products/${productId}`, {
         method: "DELETE", credentials: "include",
       });
       const data = await response.json();

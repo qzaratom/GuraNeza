@@ -67,7 +67,7 @@ function Help() {
 
   const fetchFaqs = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/help/faqs");
+      const res = await fetch("https://guraneza.onrender.com/api/help/faqs");
       const data = await res.json();
       if (data.success) setFaqs(data.faqs);
     } catch (err) {}
@@ -75,7 +75,7 @@ function Help() {
 
   const fetchTickets = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/help/tickets", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/help/tickets", { credentials: "include" });
       const data = await res.json();
       if (data.success) setTickets(data.tickets);
     } catch (err) {}
@@ -83,7 +83,7 @@ function Help() {
 
   const fetchResponses = async (ticketId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/help/tickets/${ticketId}/responses`, { credentials: "include" });
+      const res = await fetch(`https://guraneza.onrender.com/api/help/tickets/${ticketId}/responses`, { credentials: "include" });
       const data = await res.json();
       if (data.success) setResponses(data.responses);
     } catch (err) {}
@@ -97,7 +97,7 @@ function Help() {
     }
     setSending(true); setError(""); setSuccess("");
     try {
-      const res = await fetch("http://localhost:5000/api/help/tickets", {
+      const res = await fetch("https://guraneza.onrender.com/api/help/tickets", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -125,7 +125,7 @@ function Help() {
     if (!replyMessage.trim() || !activeTicket) return;
     setSendingReply(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/help/tickets/${activeTicket.id}/responses`, {
+      const res = await fetch(`https://guraneza.onrender.com/api/help/tickets/${activeTicket.id}/responses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

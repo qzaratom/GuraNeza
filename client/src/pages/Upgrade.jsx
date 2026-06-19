@@ -54,7 +54,7 @@ function Upgrade() {
 
   const fetchPlans = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/subscriptions/plans", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/subscriptions/plans", { credentials: "include" });
       const data = await res.json();
       if (data.success) setPlans(data.plans);
     } catch (err) {}
@@ -62,7 +62,7 @@ function Upgrade() {
 
   const fetchMyRequests = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/subscription-requests/my-requests", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/subscription-requests/my-requests", { credentials: "include" });
       const data = await res.json();
       if (data.success) setMyRequests(data.requests);
     } catch (err) {}
@@ -91,7 +91,7 @@ function Upgrade() {
 
     setLoading(true); setError(""); setSuccess("");
     try {
-      const res = await fetch("http://localhost:5000/api/subscription-requests", {
+      const res = await fetch("https://guraneza.onrender.com/api/subscription-requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

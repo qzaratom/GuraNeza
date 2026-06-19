@@ -71,7 +71,7 @@ function Chats() {
 
   const fetchConversations = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/chat/conversations", { credentials: "include" });
+      const response = await fetch("https://guraneza.onrender.com/api/chat/conversations", { credentials: "include" });
       const data = await response.json();
       if (data.success) setConversations(data.conversations);
     } catch (err) {} finally { setLoading(false); }
@@ -79,7 +79,7 @@ function Chats() {
 
   const startConversation = async (userId) => {
     try {
-      const response = await fetch("http://localhost:5000/api/chat/conversations", {
+      const response = await fetch("https://guraneza.onrender.com/api/chat/conversations", {
         method: "POST", headers: { "Content-Type": "application/json" },
         credentials: "include", body: JSON.stringify({ otherUserId: userId }),
       });
@@ -95,7 +95,7 @@ function Chats() {
 
   const fetchMessages = async (conversationId, isPolling = false) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/chat/conversations/${conversationId}/messages`, { credentials: "include" });
+      const response = await fetch(`https://guraneza.onrender.com/api/chat/conversations/${conversationId}/messages`, { credentials: "include" });
       const data = await response.json();
       if (data.success) {
         if (!isPolling) {
@@ -113,7 +113,7 @@ function Chats() {
     if (!newMessage.trim() || !activeConversation) return;
     setSending(true);
     try {
-      const response = await fetch("http://localhost:5000/api/chat/messages", {
+      const response = await fetch("https://guraneza.onrender.com/api/chat/messages", {
         method: "POST", headers: { "Content-Type": "application/json" },
         credentials: "include", body: JSON.stringify({ conversation_id: activeConversation.id, message: newMessage }),
       });
@@ -128,7 +128,7 @@ function Chats() {
 
   const handleDeleteConversation = async (conversationId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/chat/conversations/${conversationId}`, {
+      const response = await fetch(`https://guraneza.onrender.com/api/chat/conversations/${conversationId}`, {
         method: "DELETE", credentials: "include",
       });
       const data = await response.json();

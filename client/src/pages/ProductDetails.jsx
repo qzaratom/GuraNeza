@@ -65,7 +65,7 @@ function ProductDetails() {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, { credentials: "include" });
+      const response = await fetch(`https://guraneza.onrender.com/api/products/${id}`, { credentials: "include" });
       const data = await response.json();
       if (data.success) {
         setProduct(data.product);
@@ -81,19 +81,19 @@ function ProductDetails() {
 
   const fetchSellerProfile = async (sellerId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/user/${sellerId}`, { credentials: "include" });
+      const response = await fetch(`https://guraneza.onrender.com/api/auth/user/${sellerId}`, { credentials: "include" });
       const data = await response.json();
       if (data.success) setSeller(data.user);
     } catch (err) {}
   };
 
   const recordView = async () => {
-    try { await fetch(`http://localhost:5000/api/products/interact/${id}/view`, { method: "POST" }); } catch (err) {}
+    try { await fetch(`https://guraneza.onrender.com/api/products/interact/${id}/view`, { method: "POST" }); } catch (err) {}
   };
 
   const fetchLikes = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products/interact/${id}/likes`, { credentials: "include" });
+      const response = await fetch(`https://guraneza.onrender.com/api/products/interact/${id}/likes`, { credentials: "include" });
       const data = await response.json();
       if (data.success) { setLikes(data.likes); setUserLiked(data.userLiked); }
     } catch (err) {}
@@ -103,7 +103,7 @@ function ProductDetails() {
     if (!user) { setCartMessage("Please sign in to like"); setTimeout(() => setCartMessage(""), 3000); return; }
     setLikeLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/api/products/interact/${id}/like`, { method: "POST", credentials: "include" });
+      const response = await fetch(`https://guraneza.onrender.com/api/products/interact/${id}/like`, { method: "POST", credentials: "include" });
       const data = await response.json();
       if (data.success) { setUserLiked(data.liked); setLikes(data.liked ? likes + 1 : likes - 1); }
     } catch (err) {} finally { setLikeLoading(false); }
@@ -111,7 +111,7 @@ function ProductDetails() {
 
   const fetchSimilarProducts = async (category, currentProductId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products?category=${encodeURIComponent(category)}`, { credentials: "include" });
+      const response = await fetch(`https://guraneza.onrender.com/api/products?category=${encodeURIComponent(category)}`, { credentials: "include" });
       const data = await response.json();
       if (data.success) setSimilarProducts(data.products.filter(p => p.id !== currentProductId).slice(0, 12));
     } catch (err) {}
@@ -120,7 +120,7 @@ function ProductDetails() {
   const handleAddToCart = async () => {
     if (!user) { setCartMessage("Please sign in"); setTimeout(() => setCartMessage(""), 3000); return; }
     try {
-      const response = await fetch("http://localhost:5000/api/cart", { 
+      const response = await fetch("https://guraneza.onrender.com/api/cart", { 
         method: "POST", headers: { "Content-Type": "application/json" }, 
         credentials: "include", body: JSON.stringify({ product_id: product.id, quantity }) 
       });

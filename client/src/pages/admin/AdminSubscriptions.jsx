@@ -21,7 +21,7 @@ function AdminSubscriptions() {
 
   const fetchSubscriptions = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/admin/subscriptions", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/admin/subscriptions", { credentials: "include" });
       const data = await res.json(); 
       if (data.success) setSubscriptions(data.subscriptions);
     } catch (err) {}
@@ -40,7 +40,7 @@ function AdminSubscriptions() {
   const handleUpdatePlan = async (e) => {
     e.preventDefault(); setPlanFormLoading(true); setPlanFormError("");
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/subscriptions/${showEditPlan.id}`, {
+      const res = await fetch(`https://guraneza.onrender.com/api/admin/subscriptions/${showEditPlan.id}`, {
         method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include",
         body: JSON.stringify(planForm),
       });

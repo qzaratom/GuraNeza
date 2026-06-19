@@ -23,7 +23,7 @@ function AdminRequests() {
   const fetchRequests = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/feedback/subscription-requests", { credentials: "include" });
+      const res = await fetch("https://guraneza.onrender.com/api/admin/feedback/subscription-requests", { credentials: "include" });
       const data = await res.json(); 
       if (data.success) setRequests(data.requests);
     } catch (err) {} finally { setLoading(false); }
@@ -42,7 +42,7 @@ function AdminRequests() {
   const submitApproval = async (status) => {
     const req = status === 'approved' ? showApproveModal : showRejectModal;
     try {
-      await fetch(`http://localhost:5000/api/admin/feedback/subscription-requests/${req.id}`, {
+      await fetch(`https://guraneza.onrender.com/api/admin/feedback/subscription-requests/${req.id}`, {
         method: "PUT", headers: { "Content-Type": "application/json" }, credentials: "include",
         body: JSON.stringify({ status, admin_message: adminMessage }),
       });

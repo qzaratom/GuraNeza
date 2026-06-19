@@ -76,10 +76,10 @@ function Navbar() {
 
   const fetchCounts = () => { fetchUnreadNotifications(); fetchUnreadMessages(); };
   const fetchUnreadNotifications = async () => {
-    try { const res = await fetch("http://localhost:5000/api/notifications", { credentials: "include" }); const data = await res.json(); if (data.success) setUnreadNotifications(data.unreadCount); } catch (err) {}
+    try { const res = await fetch("https://guraneza.onrender.com/api/notifications", { credentials: "include" }); const data = await res.json(); if (data.success) setUnreadNotifications(data.unreadCount); } catch (err) {}
   };
   const fetchUnreadMessages = async () => {
-    try { const res = await fetch("http://localhost:5000/api/chat/unread", { credentials: "include" }); const data = await res.json(); if (data.success) setUnreadMessages(data.unreadCount); } catch (err) {}
+    try { const res = await fetch("https://guraneza.onrender.com/api/chat/unread", { credentials: "include" }); const data = await res.json(); if (data.success) setUnreadMessages(data.unreadCount); } catch (err) {}
   };
 
   const changeLanguage = (l) => {
